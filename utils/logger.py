@@ -8,9 +8,8 @@ class Logger:
         self.config = config
         self.summary_placeholders = {}
         self.summary_ops = {}
-        self.train_summary_writer = tf.summary.FileWriter(os.path.join(self.config.summary_dir, "train"),
-                                                          self.sess.graph)
-        self.test_summary_writer = tf.summary.FileWriter(os.path.join(self.config.summary_dir, "test"))
+        self.train_summary_writer = tf.summary.FileWriter(os.path.join(self.config.log_dir, "train"),self.sess.graph)
+        self.test_summary_writer = tf.summary.FileWriter(os.path.join(self.config.log_dir, "test"))
 
     # it can summarize scalars and images.
     def summarize(self, step, summarizer="train", scope="", summaries_dict=None):
@@ -35,7 +34,7 @@ class Logger:
                         if len(value.shape) <= 1:
                             self.summary_ops[tag] = tf.summary.scalar(tag, self.summary_placeholders[tag])
                         else:
-                            self.summary_ops[tag] = tf.summary.image(tag, self.summary_placeholders[tag])
+                            self.summary_ops[tag] = tf.summary.histogram(tag, self.summary_placeholders[tag])
 
                     summary_list.append(self.sess.run(self.summary_ops[tag], {self.summary_placeholders[tag]: value}))
 
