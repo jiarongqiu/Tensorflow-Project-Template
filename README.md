@@ -12,9 +12,10 @@ Note that we could also use shell to achieve this.
 Please inherit base/base_config.py to build configuration file.
 
 #### TODO
--[x] Base config
--[x] Base dataset
--[x] Base model
--[x] Base runner
--[x] A toy example 
--[ ] Doc
+
+- [x] Base config
+- [x] Base dataset
+- [x] Base model
+- [x] Base runner
+- [x] A toy example 
+- [ ] Doc
