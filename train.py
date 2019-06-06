@@ -8,7 +8,6 @@ args = utils.get_args()
 config = configs.ConfigsHelper.process_config(args.config)
 
 dataset = data_loader.DataLoaderHelper.load_dataset(config)
-print("Training data {} test data {}".format(len(dataset.train), len(dataset.test)))
 model = models.ModelsHelper.load_model(config)
 
 runner = example_runner.ExampleRunner(model,dataset,config)

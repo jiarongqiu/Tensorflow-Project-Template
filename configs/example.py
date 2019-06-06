@@ -5,7 +5,7 @@ from base import base_config
 class ExampleConfig(base_config.BaseConfig):
     # Base configuration
     exp_name = "mnist_rnn"
-    dataset_name = "mnist"
+    dataset = "mnist"
     exp_dir = "D:/models/"
     data_dir = "D:/data/mnist"
 
@@ -14,9 +14,6 @@ class ExampleConfig(base_config.BaseConfig):
     learning_rate = 1e-4
     batch_size = 32
     test_batch_size = 64
-    display_steps = 10
-    evaluate_steps = 5
-    optimizer = 'adam'
 
     # Model configuration
     model = "rnn"
@@ -26,5 +23,4 @@ class ExampleConfig(base_config.BaseConfig):
     n_classes = 10
 
     def __init__(self):
-        super(ExampleConfig, self).__init__(self.exp_name, self.dataset_name, self.exp_dir)
-        self.min_max_log_path = os.path.join(self.exp_dir, self.dataset_name, self.exp_name, "min_max_log.json")
+        super(ExampleConfig, self).__init__(self.exp_name, self.dataset, self.exp_dir)

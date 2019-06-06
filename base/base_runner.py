@@ -16,6 +16,9 @@ class BaseRunner(object):
     def sess(self):
         return self._sess
 
+    def train(self):
+        raise NotImplementedError
+
     def evaluate(self, subset):
         raise NotImplementedError
 

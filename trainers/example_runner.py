@@ -5,9 +5,6 @@ class ExampleRunner(base_runner.BaseRunner):
 
     def __init__(self, model, dataset, config):
         super(ExampleRunner, self).__init__(model, dataset, config)
-        self.model = model
-        self.dataset = dataset
-        self.config = config
 
     def train(self):
         for epoch in range(self.config.num_epochs + 1):
@@ -28,7 +25,7 @@ class ExampleRunner(base_runner.BaseRunner):
         while pos + batch_size < len(subset):
             batch_x = subset.X[pos:pos + batch_size]
             batch_y = subset.y[pos:pos + batch_size]
-            batch_x = batch_x.reshape((-1, self.config.n_timesteps, self.config.n_inputs))
+            batch_x = batch_x.reshape([-1] + (self.model.X.get_shape().as_list()[1:]))
             pos += batch_size
             feed_dict = {self.model.X: batch_x, self.model.Y: batch_y}
             acc, loss = self.sess.run([self.model.accuracy, self.model.loss], feed_dict)
@@ -43,16 +40,15 @@ class ExampleRunner(base_runner.BaseRunner):
 
     def train_step(self, epoch):
         batch_x, batch_y = self.dataset.train.next_batch(self.config.batch_size)
-        batch_x = batch_x.reshape((self.config.batch_size, self.config.n_timesteps, self.config.n_inputs))
-        tensors = [self.model.train_op, self.model.loss, self.model.accuracy, self.model.logits]
+        batch_x = batch_x.reshape([-1] + (self.model.X.get_shape().as_list()[1:]))
+        tensors = [self.model.train_op, self.model.loss, self.model.accuracy]
         feed_dict = {self.model.X: batch_x, self.model.Y: batch_y}
-        _, loss, acc, logits = self.sess.run(tensors, feed_dict)
+        _, loss, acc = self.sess.run(tensors, feed_dict)
         step = self.model.global_step.eval(self.sess)
         if step % self.config.display_steps == 0 or step == 1:
             print("Epoch {} Step {} Loss {:.3} Train Acc {}".format(epoch, step, loss, acc))
             summaries_dict = {
                 'loss': loss,
                 'acc': acc,
-                'logits': logits
             }
             self.logger.summarize(step, summaries_dict=summaries_dict, summarizer='train')
