@@ -8,11 +8,11 @@ class ExampleRunner(base_runner.BaseRunner):
 
     def train(self):
         for epoch in range(self.config.num_epochs + 1):
-            self.dataset.train.init()
             if epoch % self.config.evaluate_steps == 0:
                 self.evaluate(self.dataset.test)
             if epoch % self.config.save_steps == 0:
                 self.model.save(self.sess, self.model.global_step)
+            self.dataset.train.init()
             while not self.dataset.train.is_finished:
                 self.train_step(epoch)
 
@@ -21,10 +21,9 @@ class ExampleRunner(base_runner.BaseRunner):
         global_step = self.model.global_step.eval(self.sess)
         pos = 0
         accs, losses = [], []
-        # TODO: handle the last batch
         while pos + batch_size < len(subset):
             batch_x = subset.X[pos:pos + batch_size]
-            batch_y = subset.y[pos:pos + batch_size]
+            batch_y = subset.Y[pos:pos + batch_size]
             batch_x = batch_x.reshape([-1] + (self.model.X.get_shape().as_list()[1:]))
             pos += batch_size
             feed_dict = {self.model.X: batch_x, self.model.Y: batch_y}

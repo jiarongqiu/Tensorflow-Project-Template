@@ -2,9 +2,9 @@ import os
 from base import base_config
 
 
-class ExampleConfig(base_config.BaseConfig):
+class Config(base_config.BaseConfig):
     # Base configuration
-    exp_name = "mnist_rnn"
+    exp_name = "mnist_cnn"
     dataset = "mnist"
     exp_dir = "D:/models/"
     data_dir = "D:/data/mnist"
@@ -13,14 +13,12 @@ class ExampleConfig(base_config.BaseConfig):
     num_epochs = 50
     learning_rate = 1e-4
     batch_size = 32
-    test_batch_size = 64
+    test_batch_size = 1
 
     # Model configuration
-    model = "rnn"
-    n_timesteps = 28
-    n_inputs = 28
+    model = "cnn"
     n_units = 64
     n_classes = 10
 
-    def __init__(self):
-        super(ExampleConfig, self).__init__(self.exp_name, self.dataset, self.exp_dir)
+    def __init__(self, is_training):
+        super(Config, self).__init__(self.exp_name, self.exp_dir, self.dataset, is_training)

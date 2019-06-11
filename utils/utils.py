@@ -1,6 +1,7 @@
 import argparse
 import os
 import shutil
+import importlib
 
 
 def get_args():
@@ -11,8 +12,28 @@ def get_args():
         default='None',
         type=str,
         help='The Configuration file')
+    argparser.add_argument(
+        '-m', '--model',
+        metavar='C',
+        default='None',
+        type=str,
+        help='The Model file')
+    argparser.add_argument(
+        '-d', '--dataset',
+        metavar='C',
+        default='None',
+        type=str,
+        help='The Dataset file')
+    argparser.add_argument(
+        '-it', '--is_training',
+        action='store_true', default=False,
+        help='Is training')
     args = argparser.parse_args()
     return args
+
+
+def import_module(path):
+    return importlib.import_module(path)
 
 
 def rm_dir(path):

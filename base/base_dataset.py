@@ -3,7 +3,7 @@ import numpy as np
 
 
 class BaseDataSet(object):
-    def __init__(self, X, Y, shuffle=True):
+    def __init__(self, X, Y, shuffle=False):
         self.X = np.array(X)
         self.Y = np.array(Y)
         self._pos = 0
