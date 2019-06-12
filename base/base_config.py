@@ -22,7 +22,7 @@ class BaseConfig(object):
         is_training: training or testing
         log_dir: exp_dir/datasets/log/[exp_name], easy for tensorboard to visualize
         """
-        self.log_dir = os.path.join(exp_dir, dataset, "log", exp_name)
+        self.log_dir = os.path.join(exp_dir, dataset, "logs", exp_name)
         self.save_path = os.path.join(exp_dir, dataset, exp_name, exp_name)
         self.model_dir = os.path.join(exp_dir, dataset, exp_name)
         print("Model save path {}\n "
