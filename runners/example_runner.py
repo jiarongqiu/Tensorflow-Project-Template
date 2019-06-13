@@ -30,7 +30,7 @@ class ExampleRunner(base_runner.BaseRunner):
             acc, loss = self.sess.run([self.model.accuracy, self.model.loss], feed_dict)
             accs.append(acc)
             losses.append(loss)
-        print("Test Acc {} Loss {}".format(sum(accs) / len(accs), sum(losses) / len(losses)))
+        print("Test Acc {:.3f} Loss {:.3f}".format(sum(accs) / len(accs), sum(losses) / len(losses)))
         summaries_dict = {
             'acc': sum(accs) / len(accs),
             'loss': sum(losses) / len(losses),
@@ -45,7 +45,7 @@ class ExampleRunner(base_runner.BaseRunner):
         _, loss, acc = self.sess.run(tensors, feed_dict)
         step = self.model.global_step.eval(self.sess)
         if step % self.config.display_steps == 0 or step == 1:
-            print("Epoch {} Step {} Loss {:.3} Train Acc {}".format(epoch, step, loss, acc))
+            print("Epoch {} Step {} Loss {:.3f} Train Acc {:.3f}".format(epoch, step, loss, acc))
             summaries_dict = {
                 'loss': loss,
                 'acc': acc,
