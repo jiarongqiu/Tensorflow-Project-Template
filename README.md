@@ -2,7 +2,7 @@
 This repo is forked from [Tensorflow-Project-Template](https://github.com/MrGemy95/Tensorflow-Project-Template).
 Based on their setting, I add the following features:
 
-# Features
+## Features
 #### Base Config
 I use built-in Configuration rather than JSON file to record variables. 
 For example, the exp_name could be used in constructing model_dir, 
@@ -27,6 +27,21 @@ overwrite build_model function
 I did the things about sess and variables initialization. We only need 
 to specific the training process, including logging and so on.
  
+## Run
+Train a demo mnist example.
+```
+python -m mains.train -it -c configs.example -m models.example -d datasets.mnist
+```
+Test
+```
+python -m mains.test -c configs.example -m models.example -d datasets.mnist
+```
+Args:
+* -it: is training
+* -c: config file
+* -m: model file
+* -d: data file
+
 
 #### TODO
 
